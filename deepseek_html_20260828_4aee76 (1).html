@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sensores Industriais | High-Tech</title>
+    <style>
+        /* Fundo Preto com Raios Azuis */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+            background-color: #000;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(0, 150, 255, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 20%, rgba(0, 150, 255, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 50% 100%, rgba(0, 150, 255, 0.25) 0%, transparent 50%),
+                linear-gradient(135deg, #000 0%, #001a33 50%, #000 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Efeito de Raios Animados */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(45deg, transparent, transparent 50px, rgba(0, 200, 255, 0.05) 50px, rgba(0, 200, 255, 0.05) 51px);
+            z-index: -1;
+            animation: moverRaios 10s linear infinite;
+        }
+
+        @keyframes moverRaios {
+            from { background-position: 0 0; }
+            to { background-position: 100px 0; }
+        }
+
+        /* Header */
+        header {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 3px solid #00aaff;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0, 170, 255, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        h1 { font-size: 2rem; margin: 0; text-shadow: 0 0 10px #00aaff; }
+        h1 span { color: #00aaff; }
+
+        /* Botões */
+        nav { margin-top: 15px; }
+        .btn {
+            background-color: #00aaff;
+            border: none;
+            color: #000;
+            padding: 12px 24px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+            font-weight: bold;
+            box-shadow: 0 0 15px rgba(0, 170, 255, 0.5);
+        }
+        .btn:hover { background-color: #00ccff; transform: scale(1.05); box-shadow: 0 0 25px #00aaff; }
+        .btn-voltar { background-color: #555; color: #fff; box-shadow: none; }
+
+        /* Container Principal */
+        main {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        /* TELA INICIAL COM FUNDO DE BRAÇO ROBÓTICO */
+        #inicio {
+            position: relative;
+            text-align: center;
+            padding: 120px 40px;
+            border: 2px solid #00aaff;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(0, 170, 255, 0.3);
+            
+            background-image: url('https://img.magnific.com/vetores-premium/conceito-de-fundo-hud-futurista-robotico-de-tecnologia-robotica-de-maquinario-de-automatizacao_258787-1734.jpg');
+            background-size: cover;
+            background-position: center;
+            
+            background-color: rgba(0, 0, 0, 0.5);
+            background-blend-mode: multiply;
+        }
+
+        #inicio h2, #inicio p {
+            text-shadow: 0 2px 10px #000, 0 0 20px #000;
+        }
+
+        /* Catálogo */
+        #catalogo { display: none; }
+        
+        .grid-sensores { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 40px; margin-top: 30px; }
+
+        article.card-sensor {
+            background: rgba(10, 25, 47, 0.9); border: 1px solid #00aaff; border-radius: 15px;
+            overflow: hidden; text-align: center; display: flex; flex-direction: column;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(0, 170, 255, 0.1);
+            animation: flutuar 3s ease-in-out infinite; transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        @keyframes flutuar {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        article.card-sensor:hover {
+            transform: scale(1.05) translateY(-10px); z-index: 10;
+            box-shadow: 0 15px 40px rgba(0, 170, 255, 0.4);
+            animation-play-state: paused;
+        }
+
+        article.card-sensor:nth-child(2n) { animation-delay: 0.5s; }
+        article.card-sensor:nth-child(3n) { animation-delay: 1s; }
+        article.card-sensor:nth-child(4n) { animation-delay: 1.5s; }
+
+        img.img-sensor {
+            width: 100%; height: 250px; object-fit: contain; background: #0a192f;
+            padding: 15px; border-bottom: 2px solid #00aaff;
+        }
+
+        .info-sensor { padding: 15px; flex-grow: 1; }
+        .info-sensor h3 { color: #00ccff; margin-bottom: 10px; font-size: 1.2rem; text-shadow: 0 0 5px #00aaff; }
+        .info-sensor p { color: #aaccdd; font-size: 0.9rem; margin-bottom: 15px; }
+
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.9); backdrop-filter: blur(5px); }
+        .modal-conteudo { background-color: #0a192f; color: #fff; margin: 5% auto; padding: 30px; border: 2px solid #00aaff; border-radius: 15px; width: 90%; max-width: 800px; position: relative; box-shadow: 0 0 50px rgba(0, 170, 255, 0.5); animation: animarModal 0.4s; }
+        
+        @keyframes animarModal { from {top: -300px; opacity: 0;} to {top: 0; opacity: 1;} }
+        
+        .fechar { position: absolute; top: 10px; right: 20px; color: #00aaff; font-size: 30px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .fechar:hover { color: #fff; text-shadow: 0 0 10px #00aaff; }
+        
+        #img-modal { max-width: 100%; height: auto; max-height: 500px; object-fit: contain; display: block; margin: 20px auto; border: 1px solid #00aaff; border-radius: 10px; background: #000; padding: 10px; }
+        #func-modal { font-size: 1.1rem; text-align: justify; color: #ddd; }
+
+        footer { text-align: center; padding: 30px; background: rgba(0, 0, 0, 0.9); color: #00aaff; margin-top: 60px; border-top: 2px solid #00aaff; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>TIPOS DE <span>SENSORES</span> INDUSTRIAIS</h1>
+        <nav>
+            <button class="btn" onclick="mostrarCatalogo()">Explorar Sensores</button>
+            <button class="btn btn-voltar" id="btn-voltar" style="display: none;" onclick="mostrarInicio()">Voltar ao Início</button>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Fundo usando o Braço Robótico -->
+        <section id="inicio">
+            <h2 style="color: #00ccff;">Bem-vindo ao Futuro da Automação</h2>
+            <p style="color: #ddd;">Explore a linha completa de sensores industriais com visual interativo e detalhado.</p>
+            <br>
+            <button class="btn" onclick="mostrarCatalogo()" style="font-size: 1.2rem; padding: 15px 30px;">🚀 Explorar Agora</button>
+        </section>
+
+        <section id="catalogo">
+            <h2 style="text-align: center; color: #00ccff; text-shadow: 0 0 10px #00aaff;">Catálogo de Sensores Flutuantes</h2>
+            <div class="grid-sensores" id="grade-sensores"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Grupo DAP Tecnologia Industrial. Todos os direitos reservados.</p>
+    </footer>
+
+    <div id="meuModal" class="modal">
+        <div class="modal-conteudo">
+            <span class="fechar" onclick="fecharModal()">&times;</span>
+            <h2 id="titulo-modal" style="text-align: center; color: #00ccff; text-shadow: 0 0 10px #00aaff;"></h2>
+            <img id="img-modal" src="" alt="Sensor">
+            <p id="func-modal" style="margin-top: 20px;"></p>
+        </div>
+    </div>
+
+    <script>
+        const sensores = [
+            { 
+                nome: "Sensor de Pressão Diferencial", 
+                img: "https://sensycal.com.br/wp-content/uploads/2025/05/o-que-e-pressao-diferencial.jpg", 
+                funcionalidade: "Utiliza selos diafragma para medir a diferença de pressão (ΔP = P alta - P baixa) entre dois pontos de uma tubulação. Crucial para medir vazão por placas de orifício e nível em tanques pressurizados."
+            },
+            { 
+                nome: "Sensor de Temperatura", 
+                img: "https://images.tcdn.com.br/img/img_prod/424910/sensor_de_temperatura_motor_4053_1758_1_8d365966ff0635a4580d2a609acf9a9c.jpg", 
+                funcionalidade: "Sensor de temperatura para motor (Modelo MTE). Converte a variação térmica do processo em sinais elétricos para o CLP. Ideal para proteção de motores, fornos e monitoramento de fluidos."
+            },
+            { 
+                nome: "Medidor de Fluxo (Vazão)", 
+                img: "https://www.elegraz.com.br/imagens/informacoes/sensor-fluxo-06.jpg", 
+                funcionalidade: "Sensor de fluxo para automação industrial. Monitora a passagem contínua de líquidos ou gases em tubulações, garantindo o controle preciso de vazão, evitando desperdícios e protegendo bombas."
+            },
+            { 
+                nome: "Controle de Nível (Sensores + CLP)", 
+                img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnojbClh7Lmo9LDdU4wEPE8ejLbGPQZZOtdDB2svBUL1zf90Rj78veFlE&s=10", 
+                funcionalidade: "Sistema de controle de nível usando sensores conectados a um CLP. O sensor detecta a altura do material (líquido, pó ou grão) dentro do tanque ou silo e envia o sinal ao CLP, que aciona bombas ou válvulas automaticamente para manter o nível desejado."
+            },
+            { 
+                nome: "Sensor Indutivo (Metaltex)", 
+                img: "https://cdn.awsli.com.br/600x1000/2540/2540578/produto/400531688/593f3973f6ea16b572a6b773e210e102-qr83tjvumi.jpg", 
+                funcionalidade: "Sensor Indutivo Não Faceado M30 (I30-15-CNC). Possui alcance de detecção de 15mm, alimentação 12V a 24V, saída NPN com 4 fios (1NA + 1NF). Detecção de metais sem contato físico."
+            },
+            { 
+                nome: "Sensor Fotoelétrico de Barreira (Metaltex)", 
+                img: "https://cdn.awsli.com.br/2500x2500/2540/2540578/produto/2340238241a26d24960.jpg", 
+                funcionalidade: "Sensor Fotoelétrico de Barreira P18B-500-DNC. Distância sensora de 500mm (5 metros), alimentação 12V a 24V, saída NPN com contatos 1NA e 1NF. Ideal para esteiras e detecção de presença de objetos."
+            },
+            { 
+                nome: "Sensores de Proximidade Tubulares", 
+                img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSA8oWie33o8BCNvY7zFEmlobEvtIQk3lwwmrsF93Tp6Q&s=10", 
+                funcionalidade: "Linha completa de sensores de proximidade tubulares. Os indutivos (face amarela/vermelha) detectam metais, enquanto os capacitivos (face verde) detectam não metais, líquidos e grãos. Perfeitos para automação industrial e esteiras."
+            },
+            { 
+                nome: "Sensor Ultrassônico HC-SR04", 
+                img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxgXdUvz9GNlp1LpLlizP0OuDFLmDl7lojMVzAV2RRAg&s=10", 
+                funcionalidade: "Sensor ultrassônico de distância. Emite um pulso sonoro (Chirp) e mede o tempo de retorno do eco. Permite medir distâncias e níveis sem contato físico, sendo imune a poeira, cores e materiais transparentes."
+            }
+        ];
+
+        function mostrarCatalogo() {
+            document.getElementById('inicio').style.display = 'none';
+            document.getElementById('catalogo').style.display = 'block';
+            document.getElementById('btn-voltar').style.display = 'inline-block';
+            renderizarSensores();
+        }
+
+        function mostrarInicio() {
+            document.getElementById('inicio').style.display = 'block';
+            document.getElementById('catalogo').style.display = 'none';
+            document.getElementById('btn-voltar').style.display = 'none';
+        }
+
+        function renderizarSensores() {
+            const container = document.getElementById('grade-sensores');
+            container.innerHTML = ''; 
+            
+            sensores.forEach((sensor, index) => {
+                const card = document.createElement('article');
+                card.className = 'card-sensor';
+                card.innerHTML = `
+                    <img src="${sensor.img}" alt="${sensor.nome}" class="img-sensor">
+                    <div class="info-sensor">
+                        <h3>${sensor.nome}</h3>
+                        <p>Clique para ver a funcionalidade completa</p>
+                        <button class="btn" onclick="abrirModal(${index})" style="width: 100%; font-size: 0.9rem;">Ver Detalhes</button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function abrirModal(index) {
+            const sensor = sensores[index];
+            document.getElementById('titulo-modal').innerText = sensor.nome;
+            document.getElementById('img-modal').src = sensor.img;
+            document.getElementById('func-modal').innerHTML = "<strong style='color:#00ccff;'>Funcionalidade:</strong><br>" + sensor.funcionalidade;
+            document.getElementById('meuModal').style.display = 'block';
+        }
+
+        function fecharModal() {
+            document.getElementById('meuModal').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('meuModal');
+            if (event.target == modal) {
+                fecharModal();
+            }
+        }
+    </script>
+</body>
+</html>
