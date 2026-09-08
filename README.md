@@ -55,7 +55,7 @@ Saúde e Prevenção: Sensores de vazamento de água sob pias ou máquinas evita
 - **Controladores:** Arduino, ESP32, STM32, PLCs industriais
 - **Modelagem e Simulação:** CAD 3D, MATLAB/Simulink, ROS (Robot Operating System)
 
-## Tecnologias Utilizadas 
+## apps Utilizadas 
 Gemini
 Deepseek
 Github
